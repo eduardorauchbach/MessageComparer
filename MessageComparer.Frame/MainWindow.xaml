@@ -1,0 +1,69 @@
+﻿<Window x:Class="MessageComparer.Frame.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MessageComparer.Frame"
+        mc:Ignorable="d"
+        Title="Message Comparer" MinHeight="600" MinWidth="1000">
+    <Grid>
+        <Grid Margin="40,20,40,0" VerticalAlignment="Top" Height="150">
+            <Label Content="Keys Configurations"></Label>
+            
+            <DataGrid x:Name="dtKeysConfig" Margin="0,30,0,0" AlternationCount="{Binding Items.Count}" HorizontalGridLinesBrush="LightGray" VerticalGridLinesBrush="LightGray" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Parent" Binding="{Binding Parent}" Width="0.2*"/>
+                    <DataGridTextColumn Header="Primary Keys (Splited by ';')" Binding="{Binding Keys}" Width="0.5*"/>
+                    <DataGridTextColumn Header="Sorter Keys (Splited by ';')" Binding="{Binding Sorters}" Width="0.5*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Margin="40,170,10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="0.03*"/>
+                <RowDefinition Height="0.35*" />
+                <RowDefinition Height="0.1*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.1*" />
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="30" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Row="0" Grid.Column="0" Name="txtMessageTitle1" Text="Message 1" FontWeight="Bold" BorderThickness="0" Margin="0,5,0,0" IsTabStop="False"></TextBox>
+            <TextBox Grid.Row="0" Grid.Column="0" Margin="0,30,0,0" ToolTip="Message 1" x:Name="txtMessage1" TextWrapping="Wrap" Height="Auto" Width="Auto" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" AcceptsTab="True"/>
+
+            <TextBox Grid.Row="0" Grid.Column="2" Name="txtMessageTitle2" Text="Message 2" FontWeight="Bold" BorderThickness="0" Margin="0,5,0,0" IsTabStop="False"></TextBox>
+            <TextBox Grid.Row="0" Grid.Column="2" Margin="0,30,0,0" ToolTip="Message 2" x:Name="txtMessage2" TextWrapping="Wrap" Height="Auto" Width="Auto" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" AcceptsTab="True"/>
+
+            <Button Grid.Row="3" Grid.Column="0" ToolTip="Save a saved setup" Margin="0,20,0,0" x:Name="btnSave" Content="Save" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Save"/>
+            <Button Grid.Row="3" Grid.Column="0" ToolTip="Load a saved setup" Margin="120,20,0,0" x:Name="btnLoad" Content="Load" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Load"/>
+            <Label Grid.Row="3" Grid.Column="0" Margin="250,20,0,0" x:Name="lblLoadMessage"></Label>
+            <Button Grid.Row="3" Grid.Column="2" ToolTip="Edit and sort the messages trying to match them by row" Margin="0,20,0,0" x:Name="btnArrange" Content="Arrange" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Arrange"/>
+            <Label Grid.Row="3" Grid.Column="2" Margin="200,20,0,0" x:Name="lblArrangeMessage"></Label>
+
+
+            <DataGrid x:Name="dtCompare" Grid.Row="2" Grid.ColumnSpan="3" AutoGenerateColumns="False" HorizontalGridLinesBrush="Transparent" VerticalGridLinesBrush="LightGray">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="" Binding="{Binding RowNumber}" Width="Auto"/>
+                    <DataGridTextColumn Header="Row Base" Binding="{Binding RowBase}" Width="0.5*"/>
+                    <DataGridTextColumn Header="Row Compare" Binding="{Binding RowCompare}" Width="0.5*"/>
+                </DataGrid.Columns>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Height" Value="20"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsEqual}" Value="False">
+                                <Setter Property="Background" Value="#fbf"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+            </DataGrid>
+            <Button Grid.Row="2" Grid.Column="4" x:Name="PrevisousComp" Content="P" VerticalAlignment="Top" Click="PreviousDiff"/>
+            <Button Grid.Row="2" Grid.Column="4" x:Name="NextComp" Content="N" VerticalAlignment="Bottom" Click="NextDiff"/>
+        </Grid>
+    </Grid>
+</Window>
