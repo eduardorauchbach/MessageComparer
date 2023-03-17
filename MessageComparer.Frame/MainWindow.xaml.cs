@@ -58,7 +58,14 @@ namespace MessageComparer.Frame
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                if(ex.Message.ToLower().Contains("failed to compare two elements in the array"))
+                {
+                    MessageBox.Show("Distinct list detected, please fill the keys so it's possible to compare");
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
